@@ -1,103 +1,132 @@
-const calculator = {
-    displayValue: '0',
-    firstOperand: null,
-    waitingForSecondOperand: false,
-    operator: null,
-};
+var valor1 = "";
+var valor2 = "";
+var resultado;
+var operador = "";
+var del;
 
-function inputDigit(digit) {
-    const { displayValue, waitingForSecondOperand } = calculator;
-
-    if (waitingForSecondOperand === true) {
-        calculator.displayValue = digit;
-        calculator.waitingForSecondOperand = false;
-    } else {
-        calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
-    }
+function numer(numero) {
+  var aux = document.getElementById("visor").value;
+  if (aux == "0") {
+    document.getElementById("visor").value = numero;
+  } else {
+    document.getElementById("visor").value += numero;
+  }
 }
 
-function inputDecimal(dot) {
-    if (calculator.waitingForSecondOperand === true) return;
-
-    if (!calculator.displayValue.includes(dot)) {
-        calculator.displayValue += dot;
-    }
+// Funcion para dejar en cero la vison
+function cero() {
+  document.getElementById("visor").value = 0;
+  valor1 = "";
+  operador = "";
 }
 
-function handleOperator(nextOperator) {
-    const { firstOperand, displayValue, operator } = calculator;
-    const inputValue = parseFloat(displayValue);
-
-    if (operator && calculator.waitingForSecondOperand) {
-        calculator.operator = nextOperator;
-        return;
+function oper(sinal) {
+  if (valor1 == "") {
+    operador = sinal;
+    valor1 = parseFloat(document.getElementById("visor").value);
+    document.getElementById("visor").value = "";
+  } else {
+    switch (operador) {
+      case "+":
+        operador = sinal;
+        valor2 = document.getElementById("visor").value;
+        valor1 = parseFloat(valor1) + parseFloat(valor2);
+        document.getElementById("visor").value = valor1;
+        document.getElementById("visor").value = "";
+        valor2 = "";
+        break;
+      case "-":
+        operador = sinal;
+        valor2 = document.getElementById("visor").value;
+        valor1 = parseFloat(valor1) - parseFloat(valor2);
+        document.getElementById("visor").value = valor1;
+        document.getElementById("visor").value = "";
+        valor2 = "";
+        break;
+      case "/":
+        operador = sinal;
+        valor2 = document.getElementById("visor").value;
+        valor1 = parseFloat(valor1) / parseFloat(valor2);
+        document.getElementById("visor").value = valor1;
+        document.getElementById("visor").value = "";
+        valor2 = "";
+        break;
+      case "*":
+        operador = sinal;
+        valor2 = document.getElementById("visor").value;
+        valor1 = parseFloat(valor1) * parseFloat(valor2);
+        document.getElementById("visor").value = valor1;
+        document.getElementById("visor").value = "";
+        valor2 = "";
+        break;
+      default:
+        resultado = valor1;
+        break;
     }
-
-    if (firstOperand == null) {
-        calculator.firstOperand = inputValue;
-    } else if (operator) {
-        const currentValue = firstOperand || 0;
-        const result = performCalculation[operator](currentValue, inputValue);
-
-        calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
-        calculator.firstOperand = result;
-    }
-
-    calculator.waitingForSecondOperand = true;
-    calculator.operator = nextOperator;
+  }
 }
 
-const performCalculation = {
-    '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
-
-    '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
-
-    '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
-
-    '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
-
-    '=': (firstOperand, secondOperand) => secondOperand,
-};
-
-function resetCalculator() {
-    calculator.displayValue = '0';
-    calculator.firstOperand = null;
-    calculator.waitingForSecondOperand = false;
-    calculator.operator = null;
+function punto() {
+  document.getElementById("visor").value += ".";
 }
 
-function updateDisplay() {
-    const display = document.querySelector('.calculator-screen');
-    display.value = calculator.displayValue;
+// Funçion para alterar numero a negativo o positio
+function masMenos() {
+  if (document.getElementById("visor").value == "") {
+    document.getElementById("visor").value = "-";
+  } else {
+    document.getElementById("visor").value = "";
+  }
 }
 
-updateDisplay();
+function calcular() {
+  switch (operador) {
+    case "+":
+      resultado = valor1 + parseFloat(document.getElementById("visor").value);
+      document.getElementById("visor").value = resultado.toLocaleString(
+        "pt-BR"
+      );
+      break;
+    case "-":
+      resultado = valor1 - parseFloat(document.getElementById("visor").value);
+      document.getElementById("visor").value = resultado.toLocaleString(
+        "pt-BR"
+      );
+      break;
+    case "/":
+      resultado = valor1 / parseFloat(document.getElementById("visor").value);
+      document.getElementById("visor").value = resultado.toLocaleString(
+        "pt-BR"
+      );
+      break;
+    case "*":
+      resultado = valor1 * parseFloat(document.getElementById("visor").value);
+      document.getElementById("visor").value = resultado.toLocaleString(
+        "pt-BR"
+      );
+      break;
+    default:
+      resultado = valor1;
+      document.getElementById("visor").value = resultado.toLocaleString(
+        "pt-BR"
+      );
+      break;
+  }
+  valor1 = "";
+  operador = "";
+}
 
-const keys = document.querySelector('.calculator-keys');
-keys.addEventListener('click', (event) => {
-    const { target } = event;
-    if (!target.matches('button')) {
-        return;
-    }
+function porcentage() {
+  valor2 = parseFloat(document.getElementById("visor").value);
+  if (operador == "*") {
+    resultado = (valor1 / 100) * valor2;
+  }
+  document.getElementById("visor").value = resultado;
+}
 
-    if (target.classList.contains('operator')) {
-        handleOperator(target.value);
-        updateDisplay();
-        return;
-    }
-
-    if (target.classList.contains('all-clear')) {
-        resetCalculator();
-        updateDisplay();
-        return;
-    }
-
-    if (target.classList.contains('decimal')) {
-        inputDecimal(target.value);
-        updateDisplay();
-        return;
-    }
-
-    inputDigit(target.value);
-    updateDisplay();
-});
+// Funcion para borrar un caracter
+function backspace() {
+  del = document.getElementById("visor").value;
+  document.getElementById("visor").value = del.length;
+  document.getElementById("visor").value = del.substr(0, del.length - 1);
+}

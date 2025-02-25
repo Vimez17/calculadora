@@ -1,57 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f7f7f7;
-}
+    margin: 0px;
+    padding: 0px;
+    background: #bdc3c7;
+    background: linear-gradient(to right, #88717a,  #2c3e50);  
+    font-family: sans-serif;
+  }
+  
+  #calculadora {
+    width: 340px;
+    height: 570px;
+    background-color: #eaedefe0;
+    margin: 0 auto;
+    top: 20px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  #title {
+    text-align: center;
+    padding-top: 10px;
+  }
+  
+  #resultado {
+    height: 150px;
 
-.calculator {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-.calculator-screen {
-    width: 100%;
-    height: 40px;
-    border: none;
-    background-color: #252525;
-    color: #fff;
-    font-size: 24px;
+  }
+  
+  .vsaida {
     text-align: right;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-}
-
-.calculator-keys {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-}
-
-button {
-    height: 40px;
+    height: 60px;
+    width: 275px;
+    margin: 10px 20px;
+    font-size: 30px;
+    outline: none;
     border: none;
-    border-radius: 3px;
-    background-color: #e0e0e0;
-    font-size: 18px;
-}
-
-
-
-button.operator {
-    background-color: #4caf50;
-    color: #fff;
-    
-}
-
-button.all-clear {
-    background-color: #d32f2f;
-    color: #fff;
-    
-    grid-column: span 3;
-}
+  }
+  
+  .teclado {
+    height: 450px;
+  }
+  
+  .botaoAux,
+  .numero,
+  .limpar,
+  .division,
+  .suma,
+  .multiplicacion,
+  .resta,
+  .igual,
+  .botaoC {
+    height: 50px;
+    width: 50px;
+    margin: 15px;
+    float: left;
+    border-radius: 50%;
+    border-width: 0;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  
+  .division, .suma , .multiplicacion, .resta {
+    font-size: 20px;
+    background-color: #1b2777;
+  }
+  
+  .limpar {
+    font-size: 20px;
+    background-color: #b63535;
+  }
+  .igual {
+    font-size: 20px;
+    background-color: #1c8528;
+  }
+  
+  .numero {
+    font-size: 20px;
+    background-color: #1c222652;
+  }
+  .botaoAux {
+    font-size: 20px;
+    background-color: #4e6370;
+  }
+  
+  .numero,
+  .botaoAux,
+  .limpar,
+  .division,
+  .suma,
+  .multiplicacion,
+  .igual,
+  .resta 
+  {
+    cursor: pointer;
+  }
+  
+  .botaoAux:active,
+  .numero:active,
+  .limpar:active,
+  .division:active,
+  .soma:active,
+  .multiplicacion:active,
+  .resta:active,
+  .igual:active{
+    font-size: 13px;
+  }
+  
+  .botaoAux:focus,
+  .numero:focus,
+  .vazio:focus,
+  .limpar:focus,
+  .division:focus,
+  .soma:focus,
+  .multiplicacion:focus,
+  .resta:focus,
+  .igual:focus{
+    outline: 0;
+  }
+  
